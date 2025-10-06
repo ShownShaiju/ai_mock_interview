@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-// import { vapi } from "@/lib/vapi.sdk";
+ import { vapi } from "@/lib/vapi.sdk";
 // import { interviewer } from "@/constants";
 // import { createFeedback } from "@/lib/actions/general.action";
 
@@ -65,21 +65,21 @@ const Agent = ({
       console.log("Error:", error);
     };
 
-  //   vapi.on("call-start", onCallStart);
-  //   vapi.on("call-end", onCallEnd);
-  //   vapi.on("message", onMessage);
-  //   vapi.on("speech-start", onSpeechStart);
-  //   vapi.on("speech-end", onSpeechEnd);
-  //   vapi.on("error", onError);
+     vapi.on("call-start", onCallStart);
+     vapi.on("call-end", onCallEnd);
+     vapi.on("message", onMessage);
+     vapi.on("speech-start", onSpeechStart);
+     vapi.on("speech-end", onSpeechEnd);
+     vapi.on("error", onError);
 
-  //   return () => {
-  //     vapi.off("call-start", onCallStart);
-  //     vapi.off("call-end", onCallEnd);
-  //     vapi.off("message", onMessage);
-  //     vapi.off("speech-start", onSpeechStart);
-  //     vapi.off("speech-end", onSpeechEnd);
-  //     vapi.off("error", onError);
-  //   };
+     return () => {
+      vapi.off("call-start", onCallStart);
+       vapi.off("call-end", onCallEnd);
+       vapi.off("message", onMessage);
+       vapi.off("speech-start", onSpeechStart);
+       vapi.off("speech-end", onSpeechEnd);
+       vapi.off("error", onError);
+     };
    }, []);
 
   useEffect(() => {
@@ -140,7 +140,7 @@ const Agent = ({
     }
   };
 
-  const handleDisconnect = () => {
+  const   isconnect = () => {
     setCallStatus(CallStatus.FINISHED);
     vapi.stop();
   };
@@ -211,7 +211,7 @@ const Agent = ({
             </span>
           </button>
         ) : (
-          <button className="btn-disconnect" onClick={() => handleDisconnect()}>
+          <button className="btn-disconnect" onClick={() => isconnect()}>
             End
           </button>
         )}
