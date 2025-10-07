@@ -5,9 +5,9 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
- import { vapi } from "@/lib/vapi.sdk";
-// import { interviewer } from "@/constants";
-// import { createFeedback } from "@/lib/actions/general.action";
+import { vapi } from "@/lib/vapi.sdk";
+import { interviewer } from "@/constants";
+import { createFeedback } from "@/lib/actions/general.action";
 
 enum CallStatus {
   INACTIVE = "INACTIVE",
@@ -65,22 +65,22 @@ const Agent = ({
       console.log("Error:", error);
     };
 
-     vapi.on("call-start", onCallStart);
-     vapi.on("call-end", onCallEnd);
-     vapi.on("message", onMessage);
-     vapi.on("speech-start", onSpeechStart);
-     vapi.on("speech-end", onSpeechEnd);
-     vapi.on("error", onError);
+    vapi.on("call-start", onCallStart);
+    vapi.on("call-end", onCallEnd);
+    vapi.on("message", onMessage);
+    vapi.on("speech-start", onSpeechStart);
+    vapi.on("speech-end", onSpeechEnd);
+    vapi.on("error", onError);
 
-     return () => {
+    return () => {
       vapi.off("call-start", onCallStart);
-       vapi.off("call-end", onCallEnd);
-       vapi.off("message", onMessage);
-       vapi.off("speech-start", onSpeechStart);
-       vapi.off("speech-end", onSpeechEnd);
-       vapi.off("error", onError);
-     };
-   }, []);
+      vapi.off("call-end", onCallEnd);
+      vapi.off("message", onMessage);
+      vapi.off("speech-start", onSpeechStart);
+      vapi.off("speech-end", onSpeechEnd);
+      vapi.off("error", onError);
+    };
+  }, []);
 
   useEffect(() => {
     if (messages.length > 0) {
@@ -140,7 +140,7 @@ const Agent = ({
     }
   };
 
-  const   isconnect = () => {
+  const handleDisconnect = () => {
     setCallStatus(CallStatus.FINISHED);
     vapi.stop();
   };
@@ -148,7 +148,7 @@ const Agent = ({
   return (
     <>
       <div className="call-view">
-        {/* AI Interviewer Card */} 
+        {/* AI Interviewer Card */}
         <div className="card-interviewer">
           <div className="avatar">
             <Image
@@ -211,7 +211,7 @@ const Agent = ({
             </span>
           </button>
         ) : (
-          <button className="btn-disconnect" onClick={() => isconnect()}>
+          <button className="btn-disconnect" onClick={() => handleDisconnect()}>
             End
           </button>
         )}
